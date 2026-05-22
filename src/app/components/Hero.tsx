@@ -8,6 +8,12 @@ const stats = [
   { value: "5+", label: "Clients" },
 ];
 
+const portrait1200Avif = new URL("../../assets/portrait-1200.avif", import.meta.url).href;
+const portrait800Avif = new URL("../../assets/portrait-800.avif", import.meta.url).href;
+const portrait1200Webp = new URL("../../assets/portrait-1200.webp", import.meta.url).href;
+const portrait800Webp = new URL("../../assets/portrait-800.webp", import.meta.url).href;
+const portrait1200Jpg = new URL("../../assets/portrait-1200.jpg", import.meta.url).href;
+
 export default function Hero() {
   const reduce = useReducedMotion();
   const parallaxRef = useRef<HTMLDivElement | null>(null);
@@ -86,9 +92,9 @@ export default function Hero() {
           style={{ willChange: "transform" }}
         >
           <picture>
-            <source type="image/avif" srcSet="/src/assets/portrait-1200.avif 1200w, /src/assets/portrait-800.avif 800w" sizes="(max-width: 1024px) 60vw, 40vw" />
-            <source type="image/webp" srcSet="/src/assets/portrait-1200.webp 1200w, /src/assets/portrait-800.webp 800w" sizes="(max-width: 1024px) 60vw, 40vw" />
-            <img src="/src/assets/portrait-1200.jpg" alt="Sanjiv Kumar Kushwaha" loading="eager" decoding="async" className="hero-portrait-img" />
+            <source type="image/avif" srcSet={`${portrait1200Avif} 1200w, ${portrait800Avif} 800w`} sizes="(max-width: 1024px) 60vw, 40vw" />
+            <source type="image/webp" srcSet={`${portrait1200Webp} 1200w, ${portrait800Webp} 800w`} sizes="(max-width: 1024px) 60vw, 40vw" />
+            <img src={portrait1200Jpg} alt="Sanjiv Kumar Kushwaha" loading="eager" decoding="async" className="hero-portrait-img" />
           </picture>
         </motion.div>
       </div>
