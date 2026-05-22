@@ -4,6 +4,11 @@
 let audioCtx: AudioContext | null = null;
 let isMuted = true; // Muted by default to follow modern web practices
 
+if (typeof window !== "undefined") {
+  const stored = window.localStorage.getItem("portfolio-sounds-enabled");
+  isMuted = stored !== "true";
+}
+
 // Initialize audio context on demand (browsers require user interaction first)
 function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
@@ -57,17 +62,16 @@ export function playHoverSound() {
   osc.connect(gain);
   gain.connect(ctx.destination);
 
-  // High frequency transient
+  // Soft micro-tick for hover affordance
   osc.type = "sine";
-  osc.frequency.setValueAtTime(1400, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(700, ctx.currentTime + 0.04);
+  osc.frequency.setValueAtTime(960, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(560, ctx.currentTime + 0.035);
 
-  // Extremely fast volume envelope decay to prevent clipping / click artifact
-  gain.gain.setValueAtTime(0.015, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
+  gain.gain.setValueAtTime(0.01, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.035);
 
   osc.start(ctx.currentTime);
-  osc.stop(ctx.currentTime + 0.04);
+  osc.stop(ctx.currentTime + 0.035);
 }
 
 // Play a futuristic slide click sound (optimized for menu selection / button clicks)
@@ -84,14 +88,14 @@ export function playClickSound() {
   gain.connect(ctx.destination);
 
   osc.type = "triangle";
-  osc.frequency.setValueAtTime(800, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.08);
+  osc.frequency.setValueAtTime(640, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.07);
 
-  gain.gain.setValueAtTime(0.03, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.022, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.07);
 
   osc.start(ctx.currentTime);
-  osc.stop(ctx.currentTime + 0.08);
+  osc.stop(ctx.currentTime + 0.07);
 }
 
 // Play a low sweep sound (optimized for panel opens)
@@ -108,15 +112,15 @@ export function playWhooshSound() {
   gain.connect(ctx.destination);
 
   osc.type = "sine";
-  osc.frequency.setValueAtTime(120, ctx.currentTime);
-  osc.frequency.exponentialRampToValueAtTime(320, ctx.currentTime + 0.22);
+  osc.frequency.setValueAtTime(140, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(280, ctx.currentTime + 0.18);
 
   gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-  gain.gain.linearRampToValueAtTime(0.02, ctx.currentTime + 0.06);
-  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.22);
+  gain.gain.linearRampToValueAtTime(0.016, ctx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
 
   osc.start(ctx.currentTime);
-  osc.stop(ctx.currentTime + 0.22);
+  osc.stop(ctx.currentTime + 0.18);
 }
 
 // Play a short synth chime sequence (optimized for success states like copy / send)
@@ -141,10 +145,10 @@ export function playSuccessChime() {
     osc.frequency.setValueAtTime(freq, noteTime);
 
     gain.gain.setValueAtTime(0, noteTime);
-    gain.gain.linearRampToValueAtTime(0.025, noteTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.22);
+    gain.gain.linearRampToValueAtTime(0.02, noteTime + 0.018);
+    gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.2);
 
     osc.start(noteTime);
-    osc.stop(noteTime + 0.25);
+    osc.stop(noteTime + 0.22);
   });
 }
