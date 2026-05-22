@@ -181,4 +181,8 @@ export default function YantraCare() {
               </motion.div>
             ))}
           </div>
-        </motion.d
+        </motion.div>
+      </div>
+    </section>
+  );
+}

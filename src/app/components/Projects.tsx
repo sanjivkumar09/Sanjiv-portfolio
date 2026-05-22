@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { playHoverSound, playClickSound } from "../utils/sound";
 import ProjectDetailsModal from "./ProjectDetailsModal";
 
+const yantraPreviewImage = new URL("../../assets/yantra care.png", import.meta.url).href;
+
 const projects = [
   {
     title: "Yantra Care",
@@ -169,26 +171,42 @@ function ProjectCard({ project, index, onOpenDetails }: ProjectCardProps) {
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-35 group-hover:opacity-55 transition-opacity duration-500`} />
 
-            <div className="relative h-full flex items-center justify-center p-8 md:p-12 lg:p-16">
-              <div className="text-center space-y-4">
-                <div className={`text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-br ${
-                  project.accentColor === "cyan" ? "from-cyan-400 to-cyan-600" :
-                  project.accentColor === "purple" ? "from-purple-400 to-purple-600" :
-                  project.accentColor === "emerald" ? "from-emerald-400 to-emerald-600" :
-                  "from-orange-400 to-orange-600"
-                } bg-clip-text text-transparent opacity-20 group-hover:opacity-35 transition-opacity duration-500`}>
-                  {project.title.charAt(0)}
+            <div className="relative h-full flex items-center justify-center p-4 md:p-6 lg:p-8">
+              {project.title === "Yantra Care" ? (
+                <div className="relative h-full w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#090d24] p-2 md:p-4">
+                  <img
+                    src={yantraPreviewImage}
+                    alt="Yantra Care preview"
+                    className="h-full w-full object-contain object-center"
+                  />
+                  <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/45 to-transparent" />
+                  <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_45%,transparent_35%,rgba(6,10,27,0.15)_72%,rgba(6,10,27,0.4)_100%)]" />
                 </div>
-                <div className="space-y-2 opacity-50 group-hover:opacity-70 transition-opacity duration-300">
-                  <div className="h-2 w-48 md:w-64 bg-white/8 rounded-full mx-auto" />
-                  <div className="h-2 w-32 md:w-44 bg-white/8 rounded-full mx-auto" />
-                  <div className="h-2 w-40 md:w-52 bg-white/8 rounded-full mx-auto" />
+              ) : (
+                <div className="text-center space-y-4">
+                  <div className={[
+                    "text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-br bg-clip-text text-transparent opacity-20 group-hover:opacity-35 transition-opacity duration-500",
+                    project.accentColor === "cyan"
+                      ? "from-cyan-400 to-cyan-600"
+                      : project.accentColor === "purple"
+                        ? "from-purple-400 to-purple-600"
+                        : project.accentColor === "emerald"
+                          ? "from-emerald-400 to-emerald-600"
+                          : "from-orange-400 to-orange-600",
+                  ].join(" ")}>
+                    {project.title.charAt(0)}
+                  </div>
+                  <div className="space-y-2 opacity-50 group-hover:opacity-70 transition-opacity duration-300">
+                    <div className="h-2 w-48 md:w-64 bg-white/8 rounded-full mx-auto" />
+                    <div className="h-2 w-32 md:w-44 bg-white/8 rounded-full mx-auto" />
+                    <div className="h-2 w-40 md:w-52 bg-white/8 rounded-full mx-auto" />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Tech badge — no backdrop-blur */}
-            <div className={`absolute top-4 right-4 md:top-5 md:right-5 px-3 py-1.5 bg-black/75 border ${ac.badge} rounded-full text-xs font-semibold`}>
+            <div className={["absolute top-4 right-4 md:top-5 md:right-5 px-3 py-1.5 bg-black/75 rounded-full text-xs font-semibold", ac.badge].join(" ")}>
               {project.tags[0]}
             </div>
           </div>
