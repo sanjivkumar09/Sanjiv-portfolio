@@ -44,7 +44,7 @@ export default function App() {
 
       {/* Static atmospheric gradient — no JS animation = no scroll repaint cost */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden>
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-radial from-cyan-600/5 to-transparent blur-[80px] opacity-30" />
+        <div className="absolute top-0 right-0 w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] lg:w-[600px] lg:h-[600px] bg-gradient-radial from-cyan-600/5 to-transparent blur-[80px] opacity-20 sm:opacity-30" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.015),transparent_40%)]" />
       </div>
 

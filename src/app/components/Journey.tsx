@@ -42,38 +42,38 @@ export default function Journey() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="journey" ref={containerRef} className="relative py-40 px-6 md:px-12 lg:px-24">
+    <section id="journey" ref={containerRef} className="relative py-24 sm:py-28 md:py-36 lg:py-40 px-4 sm:px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-24 text-center"
+          className="mb-16 sm:mb-20 md:mb-24 text-center"
         >
           <motion.p className="text-sm text-cyan-400 tracking-widest uppercase mb-6 font-medium">
             Timeline
           </motion.p>
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-12">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-8 sm:mb-10 md:mb-12">
             <span className="block text-white">The</span>
             <span className="block bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Journey
             </span>
           </h2>
-          <p className="text-xl text-white/40 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed font-light px-2 sm:px-0">
             Every step forward is an opportunity to learn, build, and create something extraordinary
           </p>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/5">
+          <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/5">
             <motion.div
               style={{ height: lineHeight }}
               className="w-full bg-gradient-to-b from-cyan-500 via-purple-500 to-pink-500"
             />
           </div>
 
-          <div className="space-y-24">
+          <div className="space-y-16 sm:space-y-20 md:space-y-24">
             {milestones.map((milestone, index) => (
               <motion.div
                 key={milestone.year}
@@ -81,22 +81,22 @@ export default function Journey() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ delay: index * 0.1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className={`relative grid md:grid-cols-2 gap-8 items-center ${
+                className={`relative grid md:grid-cols-2 gap-6 sm:gap-8 items-center ${
                   index % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
               >
                 <div className={`${index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:order-2"}`}>
-                  <div className={`ml-16 md:ml-0 space-y-6 ${index % 2 === 0 ? "md:items-end md:flex md:flex-col" : ""}`}>
+                  <div className={`ml-12 sm:ml-16 md:ml-0 space-y-6 ${index % 2 === 0 ? "md:items-end md:flex md:flex-col" : ""}`}>
                     <div>
-                      <div className={`inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r ${milestone.gradient} bg-opacity-10 border border-white/10 mb-4 backdrop-blur-sm`}>
+                      <div className={`inline-flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r ${milestone.gradient} bg-opacity-10 border border-white/10 mb-4 backdrop-blur-sm`}>
                         <span className={`text-sm font-bold bg-gradient-to-r ${milestone.gradient} bg-clip-text text-transparent`}>
                           {milestone.year}
                         </span>
                       </div>
-                      <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 tracking-tight">
                         {milestone.title}
                       </h3>
-                      <p className="text-white/50 leading-relaxed font-light mb-6">
+                      <p className="text-white/50 text-sm sm:text-base leading-relaxed font-light mb-6">
                         {milestone.description}
                       </p>
                       <div className={`flex flex-wrap gap-2 ${index % 2 === 0 ? "md:justify-end" : ""}`}>
@@ -114,13 +114,13 @@ export default function Journey() {
                 </div>
 
                 <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
-                  <div className="ml-16 md:ml-0 relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/[0.02] to-transparent backdrop-blur-sm group hover:border-white/20 transition-all duration-700">
+                  <div className="ml-12 sm:ml-16 md:ml-0 relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/[0.02] to-transparent backdrop-blur-sm group hover:border-white/20 transition-all duration-700">
                     <div className={`absolute inset-0 bg-gradient-to-br ${milestone.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-700`} />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_70%)]" />
 
-                    <div className="relative h-full flex items-center justify-center p-12">
+                    <div className="relative h-full flex items-center justify-center p-6 sm:p-10 md:p-12">
                       <div className="text-center">
-                        <div className={`text-8xl font-bold bg-gradient-to-br ${milestone.gradient} bg-clip-text text-transparent opacity-30 group-hover:opacity-40 transition-opacity duration-700 mb-6`}>
+                        <div className={`text-5xl sm:text-7xl md:text-8xl font-bold bg-gradient-to-br ${milestone.gradient} bg-clip-text text-transparent opacity-30 group-hover:opacity-40 transition-opacity duration-700 mb-4 sm:mb-6`}>
                           {milestone.year}
                         </div>
                         <div className="space-y-3">

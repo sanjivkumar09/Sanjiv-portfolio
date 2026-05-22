@@ -65,7 +65,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center px-4 sm:px-6 md:px-12 lg:px-20 py-24 sm:py-28 lg:py-0 overflow-hidden">
 
       {/* ── Layer 1: base dark gradient ── */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/95 via-black/88 to-black/100" />
@@ -83,7 +83,7 @@ export default function Hero() {
       <div className="hero-grain" aria-hidden />
 
       {/* ── Portrait wrapper (CSS positioned, no framer conflict) ── */}
-      <div className="hero-portrait" aria-hidden>
+      <div className="hero-portrait hidden lg:block" aria-hidden>
         <motion.div
           ref={parallaxRef}
           initial={{ opacity: 0, x: 60 }}
@@ -105,43 +105,62 @@ export default function Hero() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="col-span-1 lg:col-span-6 space-y-5 lg:pr-6 hero-content"
+          className="col-span-1 lg:col-span-6 space-y-5 lg:pr-6 hero-content text-left lg:text-left mx-auto lg:mx-0 max-w-2xl"
         >
 
+          {/* Mobile portrait card */}
+          <motion.div
+            variants={reveal}
+            className="lg:hidden relative mx-auto mb-3 w-full max-w-[240px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.08] to-transparent p-3 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10" />
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-[#07070a]">
+              <picture>
+                <source type="image/avif" srcSet={`${portrait1200Avif} 1200w, ${portrait800Avif} 800w`} sizes="240px" />
+                <source type="image/webp" srcSet={`${portrait1200Webp} 1200w, ${portrait800Webp} 800w`} sizes="240px" />
+                <img src={portrait1200Jpg} alt="Sanjiv Kumar Kushwaha" loading="eager" decoding="async" className="block h-auto w-full object-cover object-top" />
+              </picture>
+            </div>
+            <div className="relative mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-white/45">
+              <span>Product Engineer</span>
+              <span className="text-emerald-400/80">Available</span>
+            </div>
+          </motion.div>
+
           {/* Status badge — pulsing availability indicator */}
-          <motion.div variants={reveal} className="inline-flex items-center gap-2.5">
+          <motion.div variants={reveal} className="inline-flex items-center justify-start gap-2.5 mx-0">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-xs uppercase text-white/45 tracking-[0.18em]">
+            <span className="text-[11px] sm:text-xs uppercase text-white/45 tracking-[0.18em]">
               Available for select partnerships
             </span>
           </motion.div>
 
           {/* Name */}
-          <motion.h1 variants={reveal} className="text-4xl md:text-5xl lg:text-5xl font-semibold leading-[1.1] tracking-tight">
+          <motion.h1 variants={reveal} className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.02] tracking-tight max-w-[10ch]">
             <span className="block text-white">Sanjiv Kumar</span>
             <span className="block text-gradient-cyan hero-name-shimmer">Kushwaha</span>
           </motion.h1>
 
           {/* Bio */}
-          <motion.p variants={reveal} className="text-base md:text-lg text-white/60 max-w-lg leading-relaxed">
+          <motion.p variants={reveal} className="text-sm sm:text-base md:text-lg text-white/60 max-w-prose mx-0 leading-relaxed">
             Founder &amp; Product Engineer crafting premium, performance-driven products — blending craft, clarity and cinematic motion.
           </motion.p>
 
           {/* CTAs */}
-          <motion.div variants={reveal} className="flex flex-wrap items-center gap-4">
-            <a href="#projects" className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white text-black rounded-md text-sm font-semibold hover:opacity-90 transition-opacity">
+          <motion.div variants={reveal} className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md">
+            <a href="#projects" className="inline-flex w-full items-center justify-center gap-2.5 px-5 py-3 bg-white text-black rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">
               View Work <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="#contact" className="inline-block px-5 py-2.5 border border-white/10 rounded-md text-sm text-white/80 hover:border-white/25 hover:text-white transition-colors duration-200">
+            <a href="#contact" className="inline-flex w-full items-center justify-center px-5 py-3 border border-white/10 rounded-full text-sm text-white/80 hover:border-white/25 hover:text-white transition-colors duration-200">
               Get in touch
             </a>
           </motion.div>
 
           {/* Social icons */}
-          <motion.div variants={reveal} className="flex items-center gap-3 text-white/70">
+          <motion.div variants={reveal} className="flex flex-wrap items-center justify-start gap-3 text-white/70 pt-1">
             <a href="https://github.com/sanjivkumar09" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/6 text-white/75 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/12 hover:text-white hover:shadow-[0_10px_24px_rgba(255,255,255,0.08)]">
               <Github className="w-5 h-5" />
             </a>
@@ -157,12 +176,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Cinematic stats row */}
-          <motion.div variants={reveal} className="flex items-center gap-6 pt-2 border-t border-white/[0.06]">
+          <motion.div variants={reveal} className="flex flex-wrap items-center justify-start gap-3 sm:gap-6 pt-2 border-t border-white/[0.06]">
             {stats.map((stat, i) => (
-              <div key={stat.label} className="flex items-center gap-6">
+              <div key={stat.label} className="flex items-center gap-3 sm:gap-6">
                 {i > 0 && <div className="w-px h-7 bg-white/8" />}
                 <div>
-                  <div className="text-xl font-semibold text-white leading-none">{stat.value}</div>
+                  <div className="text-lg sm:text-xl font-semibold text-white leading-none">{stat.value}</div>
                   <div className="text-[11px] text-white/30 tracking-wide mt-1">{stat.label}</div>
                 </div>
               </div>

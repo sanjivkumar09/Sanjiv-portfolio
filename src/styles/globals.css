@@ -404,6 +404,43 @@ img { image-rendering: auto; }
   background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 82%);
 }
 
+@media (max-width: 1024px) {
+  .hero-portrait {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: min(72vw, 340px);
+    margin: 0 auto 1.75rem;
+    transform: none !important;
+    z-index: 10;
+  }
+
+  .hero-portrait-img {
+    -webkit-mask-image: none;
+    mask-image: none;
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero-content {
+    max-width: 42rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-portrait {
+    width: min(78vw, 280px);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-grain {
+    opacity: 0.02;
+  }
+
+  .hero-vignette {
+    background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 44%, rgba(0, 0, 0, 0.42) 100%);
+  }
+}
+
 /* Text gradient utility used in hero */
 .text-gradient-cyan {
   background: linear-gradient(90deg, #7dd3fc, #a78bfa 60%);

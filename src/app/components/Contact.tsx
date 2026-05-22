@@ -41,37 +41,11 @@ const socialLinks = [
 
 export default function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
-  const [formState, setFormState] = useState({ name: "", email: "", message: "" });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
-
-  const { scrollYProgress: formProgress } = useScroll({
-    target: formRef,
-    offset: ["start end", "end start"]
-  });
-
-  const formY = useTransform(formProgress, [0, 1], [30, -30]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formState.name || !formState.email || !formState.message) return;
-
-    playSuccessChime();
-    setIsSubmitted(true);
-
-    // Blast celebration confetti
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.8 },
-      colors: ["#06b6d4", "#8b5cf6", "#ec4899"]
-    });
-  };
 
   return (
     <section id="contact" ref={containerRef} className="relative py-20 md:py-32 lg:py-40 px-4 md:px-8 lg:px-16 xl:px-24">
@@ -178,145 +152,6 @@ export default function Contact() {
               <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </motion.a>
           ))}
-        </motion.div>
-
-        <motion.div
-          ref={formRef}
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-150px" }}
-          transition={{ delay: 0.6, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.02] to-transparent backdrop-blur-sm p-6 md:p-10 lg:p-16 xl:p-20"
-        >
-          {/* Atmospheric backgrounds */}
-          <motion.div
-            style={{ y: formY }}
-            className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-cyan-500/10 to-transparent rounded-full blur-3xl"
-          />
-          <motion.div
-            style={{ y: useTransform(formProgress, [0, 1], [-50, 50]) }}
-            className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-to-br from-purple-500/10 to-transparent rounded-full blur-3xl"
-          />
-
-          {/* Rim lights */}
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
-
-          <div className="relative">
-            {isSubmitted ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="text-center py-10 space-y-6 max-w-md mx-auto"
-              >
-                <div className="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(6,182,212,0.2)]">
-                  <CheckCircle2 className="w-8 h-8 text-cyan-400" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold tracking-tight text-white">Message Transmitted</h3>
-                  <p className="text-white/60 text-sm font-light leading-relaxed">
-                    Thank you! Your transmission was received successfully. Sanjiv will review your coordinates and contact you shortly.
-                  </p>
-                </div>
-                <button
-                  onClick={() => { playClickSound(); setIsSubmitted(false); setFormState({ name: "", email: "", message: "" }); }}
-                  className="px-6 py-2 border border-white/10 hover:border-white/20 rounded-full text-xs text-white/50 hover:text-white transition-all cursor-pointer"
-                >
-                  Send another transmission
-                </button>
-              </motion.div>
-            ) : (
-              <>
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-10 lg:mb-12 text-center tracking-tight drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)]">
-                  Send a Message
-                </h3>
-                <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.7, duration: 0.8 }}
-                    >
-                      <label className="block text-xs md:text-sm text-white/50 mb-2 md:mb-3 font-light drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formState.name}
-                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        onMouseEnter={playHoverSound}
-                        placeholder="Your name"
-                        className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 transition-all duration-500 placeholder:text-white/20 text-sm md:text-base text-white/90 backdrop-blur-sm hover:bg-white/[0.07] shadow-lg"
-                      />
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.75, duration: 0.8 }}
-                    >
-                      <label className="block text-xs md:text-sm text-white/50 mb-2 md:mb-3 font-light drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formState.email}
-                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        onMouseEnter={playHoverSound}
-                        placeholder="your@email.com"
-                        className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 transition-all duration-500 placeholder:text-white/20 text-sm md:text-base text-white/90 backdrop-blur-sm hover:bg-white/[0.07] shadow-lg"
-                      />
-                    </motion.div>
-                  </div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                  >
-                    <label className="block text-sm text-white/50 mb-3 font-light drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                      Message
-                    </label>
-                    <textarea
-                      rows={6}
-                      required
-                      value={formState.message}
-                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      onMouseEnter={playHoverSound}
-                      placeholder="Tell me about your project..."
-                      className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 transition-all duration-500 resize-none placeholder:text-white/20 text-sm md:text-base text-white/90 backdrop-blur-sm hover:bg-white/[0.07] shadow-lg"
-                    />
-                  </motion.div>
-                  <motion.button
-                    type="submit"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.85, duration: 0.8 }}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onMouseEnter={playHoverSound}
-                    className="group w-full px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full font-medium shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:shadow-[0_0_80px_rgba(6,182,212,0.6)] transition-all duration-700 flex items-center justify-center gap-2 md:gap-3 text-base md:text-lg relative overflow-hidden cursor-pointer"
-                  >
-                    <span className="relative z-10 flex items-center gap-3">
-                      Send Message
-                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                    </span>
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-cyan-500"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    />
-                  </motion.button>
-                </form>
-              </>
-            )}
-          </div>
         </motion.div>
 
         <motion.div
