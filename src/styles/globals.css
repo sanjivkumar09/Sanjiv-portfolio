@@ -218,6 +218,11 @@ body {
   opacity: 1;
 }
 
+.project-spotlight-card--lite::before,
+.project-spotlight-card--lite::after {
+  opacity: 0 !important;
+}
+
 /* Prevent text selection on decorative elements */
 .no-select {
   -webkit-user-select: none;
@@ -438,6 +443,22 @@ img { image-rendering: auto; }
 
   .hero-vignette {
     background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 44%, rgba(0, 0, 0, 0.42) 100%);
+  }
+
+  .project-spotlight-card::before,
+  .project-spotlight-card::after {
+    opacity: 0 !important;
+  }
+
+  .project-spotlight-card,
+  .project-spotlight-card:hover,
+  .project-spotlight-card--lite {
+    box-shadow: none;
+  }
+
+  .hero-ambient-glow__cyan,
+  .hero-ambient-glow__violet {
+    filter: blur(24px);
   }
 }
 

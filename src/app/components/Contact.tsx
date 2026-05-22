@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Mail, Github, Linkedin, Instagram, Send, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { playHoverSound, playClickSound, playSuccessChime } from "../utils/sound";
@@ -41,20 +41,16 @@ const socialLinks = [
 
 export default function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
+  const animatedHeadingProps = reduceMotion ? {} : { initial: { opacity: 0, y: 60 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } };
 
   return (
     <section id="contact" ref={containerRef} className="relative py-20 md:py-32 lg:py-40 px-4 md:px-8 lg:px-16 xl:px-24">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          {...animatedHeadingProps}
           viewport={{ once: true, margin: "-150px" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 md:mb-20 lg:mb-24"
         >
           <motion.div className="relative inline-block mb-8">
@@ -68,19 +64,19 @@ export default function Contact() {
             <div className="absolute -inset-6 bg-gradient-to-r from-cyan-500/0 via-purple-500/5 to-cyan-500/0 blur-3xl" />
             <h2 className="relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tighter mb-8 md:mb-12">
               <motion.span
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+                  whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={reduceMotion ? undefined : { delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="block text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
               >
                 Let's Build
               </motion.span>
               <motion.span
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                  initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+                  whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.35, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={reduceMotion ? undefined : { delay: 0.35, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="block bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_50px_rgba(6,182,212,0.3)]"
               >
                 Something Meaningful
@@ -100,10 +96,10 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-150px" }}
-          transition={{ delay: 0.2, duration: 1.2 }}
+          transition={reduceMotion ? undefined : { delay: 0.2, duration: 1.2 }}
           className="grid md:grid-cols-2 gap-4 md:gap-6 mb-12 md:mb-16 lg:mb-20"
         >
           {socialLinks.map((link, index) => (
@@ -114,13 +110,13 @@ export default function Contact() {
               rel="noopener noreferrer"
               onMouseEnter={playHoverSound}
               onClick={() => playClickSound()}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 + index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ scale: 1.02, y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent backdrop-blur-sm p-6 md:p-8 lg:p-10 hover:border-white/10 transition-all duration-700"
+              transition={reduceMotion ? undefined : { delay: 0.3 + index * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={reduceMotion ? undefined : { scale: 1.02, y: -4 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+              className="group relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent backdrop-blur-sm p-5 sm:p-6 md:p-8 lg:p-10 hover:border-white/10 transition-all duration-700"
             >
               {/* Atmospheric glow */}
               <div className={`absolute inset-0 bg-gradient-to-br ${link.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-700`} />
@@ -155,10 +151,10 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 1, duration: 1 }}
+          transition={reduceMotion ? undefined : { delay: 1, duration: 1 }}
           className="mt-16 md:mt-20 lg:mt-24 text-center space-y-4 md:space-y-6"
         >
           <div className="flex items-center justify-center gap-6 mb-8">

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { useRef, useState } from "react";
 import { playHoverSound, playClickSound } from "../utils/sound";
@@ -59,6 +59,7 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, index, onOpenDetails }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
@@ -75,6 +76,7 @@ function ProjectCard({ project, index, onOpenDetails }: ProjectCardProps) {
   const ac = accentClasses[project.accentColor as keyof typeof accentClasses];
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduceMotion) return;
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -86,11 +88,11 @@ function ProjectCard({ project, index, onOpenDetails }: ProjectCardProps) {
   return (
     <motion.div
       ref={cardRef}
-      style={{ opacity }}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      style={reduceMotion ? undefined : { opacity }}
+      initial={reduceMotion ? false : { opacity: 0, y: 60 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-180px" }}
-      transition={{ delay: index * 0.1, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={reduceMotion ? undefined : { delay: index * 0.1, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       className={`group relative grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center`}
     >
       {/* Content side */}
@@ -160,14 +162,14 @@ function ProjectCard({ project, index, onOpenDetails }: ProjectCardProps) {
           {/* Main project card — with mouse spotlight hover effect */}
           <div 
             onMouseMove={handleMouseMove}
-            onMouseEnter={playHoverSound}
+            onMouseEnter={reduceMotion ? undefined : playHoverSound}
             style={{ 
               "--spotlight-color": project.accentColor === "cyan" ? "rgba(6, 182, 212, 0.06)" :
                                    project.accentColor === "purple" ? "rgba(139, 92, 246, 0.06)" :
                                    project.accentColor === "emerald" ? "rgba(16, 185, 129, 0.06)" :
                                    "rgba(249, 115, 22, 0.06)"
             } as React.CSSProperties}
-            className="relative aspect-[16/10] md:aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 group-hover:border-white/18 transition-border duration-500 shadow-2xl project-spotlight-card"
+            className={`relative aspect-[16/10] md:aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-gray-900/80 to-black/80 group-hover:border-white/18 transition-border duration-500 shadow-2xl project-spotlight-card ${reduceMotion ? "project-spotlight-card--lite" : ""}`}
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-35 group-hover:opacity-55 transition-opacity duration-500`} />
 
@@ -243,7 +245,7 @@ export default function Projects() {
               Projects
             </span>
           </h2>
-          <p className="text-base md:text-lg text-white/45 leading-relaxed font-light">
+          <p className="text-base md:text-lg text-white/45 leading-relaxed font-light max-w-2xl">
             Building modern digital products with premium experiences and engineering excellence
           </p>
         </motion.div>

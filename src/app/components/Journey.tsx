@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
 const milestones = [
@@ -34,6 +34,7 @@ const milestones = [
 
 export default function Journey() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"]
@@ -77,10 +78,10 @@ export default function Journey() {
             {milestones.map((milestone, index) => (
               <motion.div
                 key={milestone.year}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={reduceMotion ? false : { opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: index * 0.1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                transition={reduceMotion ? undefined : { delay: index * 0.1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 className={`relative grid md:grid-cols-2 gap-6 sm:gap-8 items-center ${
                   index % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
