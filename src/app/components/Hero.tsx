@@ -105,16 +105,16 @@ export default function Hero() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="col-span-1 lg:col-span-6 space-y-5 lg:pr-6 hero-content text-left lg:text-left mx-auto lg:mx-0 max-w-2xl"
+          className="col-span-1 lg:col-span-6 space-y-5 lg:pr-6 hero-content text-center lg:text-left mx-auto lg:mx-0 max-w-2xl"
         >
 
           {/* Mobile portrait card */}
           <motion.div
             variants={reveal}
-            className="lg:hidden relative mx-auto mb-3 w-full max-w-[240px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.08] to-transparent p-3 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+            className="lg:hidden relative mx-auto mb-4 w-full max-w-[280px] overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10" />
-            <div className="relative overflow-hidden rounded-[1.5rem] bg-[#07070a]">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/12 via-transparent to-purple-500/12" />
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-[#07070a] ring-1 ring-white/5">
               <picture>
                 <source type="image/avif" srcSet={`${portrait1200Avif} 1200w, ${portrait800Avif} 800w`} sizes="240px" />
                 <source type="image/webp" srcSet={`${portrait1200Webp} 1200w, ${portrait800Webp} 800w`} sizes="240px" />
@@ -128,7 +128,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Status badge — pulsing availability indicator */}
-          <motion.div variants={reveal} className="inline-flex items-center justify-start gap-2.5 mx-0">
+          <motion.div variants={reveal} className="inline-flex items-center justify-center lg:justify-start gap-2.5 mx-auto lg:mx-0">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -139,18 +139,18 @@ export default function Hero() {
           </motion.div>
 
           {/* Name */}
-          <motion.h1 variants={reveal} className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.02] tracking-tight max-w-[10ch]">
+          <motion.h1 variants={reveal} className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.02] tracking-tight max-w-[10ch] mx-auto lg:mx-0">
             <span className="block text-white">Sanjiv Kumar</span>
             <span className="block text-gradient-cyan hero-name-shimmer">Kushwaha</span>
           </motion.h1>
 
           {/* Bio */}
-          <motion.p variants={reveal} className="text-sm sm:text-base md:text-lg text-white/60 max-w-prose mx-0 leading-relaxed">
+          <motion.p variants={reveal} className="text-sm sm:text-base md:text-lg text-white/60 max-w-prose mx-auto lg:mx-0 leading-relaxed">
             Founder &amp; Product Engineer crafting premium, performance-driven products — blending craft, clarity and cinematic motion.
           </motion.p>
 
           {/* CTAs */}
-          <motion.div variants={reveal} className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md">
+          <motion.div variants={reveal} className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md mx-auto lg:mx-0">
             <a href="#projects" className="inline-flex w-full items-center justify-center gap-2.5 px-5 py-3 bg-white text-black rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">
               View Work <ArrowRight className="w-4 h-4" />
             </a>
@@ -160,7 +160,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Social icons */}
-          <motion.div variants={reveal} className="flex flex-wrap items-center justify-start gap-3 text-white/70 pt-1">
+          <motion.div variants={reveal} className="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-white/70 pt-1">
             <a href="https://github.com/sanjivkumar09" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/6 text-white/75 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/12 hover:text-white hover:shadow-[0_10px_24px_rgba(255,255,255,0.08)]">
               <Github className="w-5 h-5" />
             </a>
@@ -176,7 +176,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Cinematic stats row */}
-          <motion.div variants={reveal} className="flex flex-wrap items-center justify-start gap-3 sm:gap-6 pt-2 border-t border-white/[0.06]">
+          <motion.div variants={reveal} className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-6 pt-2 border-t border-white/[0.06]">
             {stats.map((stat, i) => (
               <div key={stat.label} className="flex items-center gap-3 sm:gap-6">
                 {i > 0 && <div className="w-px h-7 bg-white/8" />}
