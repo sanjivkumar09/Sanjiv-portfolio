@@ -151,10 +151,10 @@ export default function Hero() {
 
           {/* CTAs */}
           <motion.div variants={reveal} className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md mx-auto lg:mx-0">
-            <a href="#projects" className="inline-flex w-full items-center justify-center gap-2.5 px-5 py-3 bg-white text-black rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">
+            <a href="#projects" className="inline-flex w-full items-center justify-center gap-2.5 px-5 py-3 bg-white text-black rounded-full text-sm font-semibold shadow-[0_10px_30px_rgba(255,255,255,0.10)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(255,255,255,0.18)] hover:opacity-95">
               View Work <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="#contact" className="inline-flex w-full items-center justify-center px-5 py-3 border border-white/10 rounded-full text-sm text-white/80 hover:border-white/25 hover:text-white transition-colors duration-200">
+            <a href="#contact" className="inline-flex w-full items-center justify-center px-5 py-3 rounded-full border border-white/10 bg-white/[0.03] text-sm text-white/80 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.07] hover:text-white hover:shadow-[0_18px_45px_rgba(255,255,255,0.10)]">
               Get in touch
             </a>
           </motion.div>
